@@ -1,0 +1,111 @@
+from operator import itemgetter, attrgetter
+
+## Part 1 is setting up the matrix
+episodeNumber = 0
+season = 0
+episodeName = "Place Holder"
+episodeRank = 1000.0
+someText = ""
+
+currentEpisode = (episodeName, season, episodeName, episodeRank)
+episodeList = []
+
+
+## Part 2 is opening the file, and saving the text
+file = open('TNGrank.txt')
+for i in file:
+	x = i.split(" ")
+	if x[0] == "Season":
+		season +=1
+#		print("SEASON")
+	elif x[0] == "\n":
+		break
+	else:
+		theNumber1 = int(x[0])
+		episodeNumber = theNumber1
+#		print(episodeNumber)
+		y = i.split("-")
+		theNumber2 = y[1]
+		theNumber3 = theNumber2.split("\\")
+		episodeRank = float(theNumber3[0])
+#		print(episodeRank)
+		someText = y[0].split(" ")
+		someText.pop(0)
+		episodeName = ' '.join(someText)
+#		print(episodeName)
+#		print(season)
+		currentEpisode = (episodeNumber, episodeName, season, episodeRank)
+
+		episodeList.append(currentEpisode)
+#		print(currentEpisode)
+##############print(episodeList)
+
+##Part 3 is ranking the episodes
+
+listSorted = sorted(episodeList, key=itemgetter(3), reverse=True)
+print(listSorted)
+
+
+## Part 4 is getting an average score per season
+season1score = 0.0
+season2score = 0.0
+season3score = 0.0
+season4score = 0.0
+season5score = 0.0
+season6score = 0.0
+season7score = 0.0
+season1count = 0
+season2count = 0
+season3count = 0
+season4count = 0
+season5count = 0
+season6count = 0
+season7count = 0
+
+for i in episodeList:
+	if i[2] == 1:
+		season1score += i[3]
+		season1count += 1
+	if i[2] == 2:
+		season2score += i[3]
+		season2count += 1
+	if i[2] == 3:
+		season3score += i[3]
+		season3count += 1
+	if i[2] == 4:
+		season4score += i[3]
+		season4count += 1
+	if i[2] == 5:
+		season5score += i[3]
+		season5count += 1
+	if i[2] == 6:
+		season6score += i[3]
+		season6count += 1		
+	if i[2] == 7:
+		season7score += i[3]
+		season7count += 1
+
+
+
+season1average = season1score/season1count
+season2average = season2score/season2count
+season3average = season3score/season3count
+season4average = season4score/season4count
+season5average = season5score/season4count
+season6average = season6score/season4count
+season7average = season7score/season4count
+
+season1average = str(round(season1average, 1))
+season2average = str(round(season2average, 1))
+season3average = str(round(season3average, 1))
+season4average = str(round(season4average, 1))
+season5average = str(round(season5average, 1))
+season6average = str(round(season6average, 1))
+season7average = str(round(season7average, 1))
+
+
+
+print(season1average, season2average, season3average, season4average, season5average, season6average, season7average)
+
+
+
